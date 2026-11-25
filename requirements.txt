@@ -1,0 +1,10 @@
+# Уже стоит в C:\Projects\fiction-world\venv_ft (torch 2.6.0+cu124, CUDA).
+# Аудит экзамена работает на стандартной библиотеке.
+# Прогон модели: peft + transformers + bitsandbytes.
+peft==0.22.0
+transformers==5.24.0
+accelerate
+bitsandbytes
+# Ядра Qwen3.5 на Windows: torch 2.6 держит Triton 3.2, не 3.3+.
+flash-linear-attention==0.6.0
+triton-windows<3.3

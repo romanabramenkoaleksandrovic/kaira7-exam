@@ -1,0 +1,106 @@
+{
+  "tag": "gold-rubric",
+  "created_at": "2026-11-25T08:39:01Z",
+  "probes_sha256": "b338d472d9acb661170399d46dc113394779520bf2e0f6a119e9fb31779383f9",
+  "model": {
+    "mode": "gold-rubric",
+    "base": null,
+    "adapter": null,
+    "load_4bit": false,
+    "gpu": 0,
+    "max_new_tokens": 160,
+    "enable_thinking": false
+  },
+  "schema_version": 1,
+  "primary": {
+    "n": 61,
+    "passed": 61,
+    "accuracy": 1.0
+  },
+  "by_category": {
+    "biology": {
+      "n": 8,
+      "passed": 8,
+      "accuracy": 1.0
+    },
+    "economy": {
+      "n": 3,
+      "passed": 3,
+      "accuracy": 1.0
+    },
+    "geography": {
+      "n": 8,
+      "passed": 8,
+      "accuracy": 1.0
+    },
+    "history": {
+      "n": 6,
+      "passed": 6,
+      "accuracy": 1.0
+    },
+    "inference": {
+      "n": 8,
+      "passed": 8,
+      "accuracy": 1.0
+    },
+    "mixed": {
+      "n": 5,
+      "passed": 5,
+      "accuracy": 1.0
+    },
+    "negatives": {
+      "n": 10,
+      "passed": 10,
+      "accuracy": 1.0
+    },
+    "organization": {
+      "n": 4,
+      "passed": 4,
+      "accuracy": 1.0
+    },
+    "science": {
+      "n": 4,
+      "passed": 4,
+      "accuracy": 1.0
+    },
+    "society": {
+      "n": 5,
+      "passed": 5,
+      "accuracy": 1.0
+    }
+  },
+  "tracks": {
+    "primary": {
+      "n": 61,
+      "passed": 61,
+      "accuracy": 1.0
+    },
+    "consistency": {
+      "n": 4,
+      "passed": 4,
+      "accuracy": 1.0
+    },
+    "control": {
+      "n": 4,
+      "passed": 4,
+      "accuracy": 1.0
+    }
+  },
+  "negatives": {
+    "n": 10,
+    "passed": 10,
+    "accuracy": 1.0,
+    "denial_rate": 1.0,
+    "correction_rate": 1.0
+  },
+  "consistency_groups": {
+    "groups": {
+      "gravity": true,
+      "population": true
+    },
+    "n": 2,
+    "passed": 2,
+    "accuracy": 1.0
+  },
+  "failures": []
+}

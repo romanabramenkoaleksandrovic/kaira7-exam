@@ -1,0 +1,463 @@
+{
+  "tag": "qlora",
+  "created_at": "2026-11-25T11:27:29Z",
+  "probes_sha256": "b338d472d9acb661170399d46dc113394779520bf2e0f6a119e9fb31779383f9",
+  "model": {
+    "mode": "generate",
+    "base": "D:\\models\\Qwen3.5-4B-usable",
+    "adapter": "adapters\\qlora",
+    "load_4bit": true,
+    "gpu": 0,
+    "max_new_tokens": 160,
+    "enable_thinking": false,
+    "lora": {
+      "peft_type": "LORA",
+      "task_type": "CAUSAL_LM",
+      "r": 16,
+      "lora_alpha": 32,
+      "lora_dropout": 0.05,
+      "target_modules": "model\\.language_model\\..*\\.(?:q_proj|k_proj|v_proj|o_proj|gate_proj|up_proj|down_proj|in_proj_qkv|in_proj_z|in_proj_a|in_proj_b|out_proj)$",
+      "base_model_name_or_path": "D:\\models\\Qwen3.5-4B-usable",
+      "bias": "none",
+      "use_dora": false
+    },
+    "versions": {
+      "torch": "2.6.0+cu124",
+      "transformers": "5.24.0",
+      "peft": "0.22.0",
+      "cuda": "NVIDIA GeForce RTX 4060 Ti"
+    }
+  },
+  "schema_version": 1,
+  "primary": {
+    "n": 61,
+    "passed": 31,
+    "accuracy": 0.5081967213114754
+  },
+  "by_category": {
+    "biology": {
+      "n": 8,
+      "passed": 3,
+      "accuracy": 0.375
+    },
+    "economy": {
+      "n": 3,
+      "passed": 3,
+      "accuracy": 1.0
+    },
+    "geography": {
+      "n": 8,
+      "passed": 8,
+      "accuracy": 1.0
+    },
+    "history": {
+      "n": 6,
+      "passed": 5,
+      "accuracy": 0.8333333333333334
+    },
+    "inference": {
+      "n": 8,
+      "passed": 2,
+      "accuracy": 0.25
+    },
+    "mixed": {
+      "n": 5,
+      "passed": 1,
+      "accuracy": 0.2
+    },
+    "negatives": {
+      "n": 10,
+      "passed": 5,
+      "accuracy": 0.5
+    },
+    "organization": {
+      "n": 4,
+      "passed": 2,
+      "accuracy": 0.5
+    },
+    "science": {
+      "n": 4,
+      "passed": 0,
+      "accuracy": 0.0
+    },
+    "society": {
+      "n": 5,
+      "passed": 2,
+      "accuracy": 0.4
+    }
+  },
+  "tracks": {
+    "primary": {
+      "n": 61,
+      "passed": 31,
+      "accuracy": 0.5081967213114754
+    },
+    "consistency": {
+      "n": 4,
+      "passed": 3,
+      "accuracy": 0.75
+    },
+    "control": {
+      "n": 4,
+      "passed": 3,
+      "accuracy": 0.75
+    }
+  },
+  "negatives": {
+    "n": 10,
+    "passed": 5,
+    "accuracy": 0.5,
+    "denial_rate": 0.9,
+    "correction_rate": 0.5
+  },
+  "consistency_groups": {
+    "groups": {
+      "gravity": false,
+      "population": true
+    },
+    "n": 2,
+    "passed": 1,
+    "accuracy": 0.5
+  },
+  "cosine_primary": 0.39356301600120636,
+  "cosine_by_category": {
+    "biology": 0.35244056419646375,
+    "economy": 0.6035498842275121,
+    "geography": 0.5371855072793599,
+    "history": 0.4427995366189945,
+    "inference": 0.1990536370031647,
+    "mixed": 0.4207994880193901,
+    "negatives": 0.2585254238885911,
+    "organization": 0.6311805489713256,
+    "science": 0.3514171818720284,
+    "society": 0.442163366697781
+  },
+  "failures": [
+    {
+      "id": "bio-01",
+      "category": "biology",
+      "track": "primary",
+      "missed_slots": [
+        "excluded"
+      ],
+      "denial_ok": true,
+      "answer": "В баланс включены 15 видов, и кайраны составляют 27% этой биомассы."
+    },
+    {
+      "id": "bio-02",
+      "category": "biology",
+      "track": "primary",
+      "missed_slots": [
+        "amber"
+      ],
+      "denial_ok": true,
+      "answer": "Наибольшую долю — 38% — занимает янтарный фотокластер, он образует янтарные луга кольца."
+    },
+    {
+      "id": "bio-04",
+      "category": "biology",
+      "track": "primary",
+      "missed_slots": [
+        "length",
+        "diet"
+      ],
+      "denial_ok": true,
+      "answer": ""
+    },
+    {
+      "id": "bio-06",
+      "category": "biology",
+      "track": "primary",
+      "missed_slots": [
+        "leech",
+        "hosts"
+      ],
+      "denial_ok": true,
+      "answer": "Это «пыль» — микробиом, около 23% биомассы Кайры-7. Она сосёт люмит у всех тиссов, включая стеклянных китов."
+    },
+    {
+      "id": "bio-07",
+      "category": "biology",
+      "track": "primary",
+      "missed_slots": [
+        "share",
+        "role"
+      ],
+      "denial_ok": true,
+      "answer": "«Пыль» составляет 23% биомассы и возвращает кремний лугам, замыкая круговорот."
+    },
+    {
+      "id": "his-01",
+      "category": "history",
+      "track": "primary",
+      "missed_slots": [
+        "year",
+        "probe"
+      ],
+      "denial_ok": true,
+      "answer": "В 2187 году; его назвали «Вейра-1»."
+    },
+    {
+      "id": "soc-02",
+      "category": "society",
+      "track": "primary",
+      "missed_slots": [
+        "lang"
+      ],
+      "denial_ok": true,
+      "answer": "Кайранский язык, около 4200 слов."
+    },
+    {
+      "id": "soc-03",
+      "category": "society",
+      "track": "primary",
+      "missed_slots": [
+        "day",
+        "night"
+      ],
+      "denial_ok": true,
+      "answer": "«Культ Двух Солнц». В нём Келе и Вейра воспринимаются как единое целое, а не как отдельные объекты."
+    },
+    {
+      "id": "soc-05",
+      "category": "society",
+      "track": "primary",
+      "missed_slots": [
+        "organ"
+      ],
+      "denial_ok": true,
+      "answer": "Через резонит: кристалл помещают в резонансный архив, а кайран подводит его к резониту."
+    },
+    {
+      "id": "sci-01",
+      "category": "science",
+      "track": "primary",
+      "missed_slots": [
+        "archive"
+      ],
+      "denial_ok": true,
+      "answer": "В резонит — кристалл с Хребта Вейры."
+    },
+    {
+      "id": "sci-02",
+      "category": "science",
+      "track": "primary",
+      "missed_slots": [
+        "what"
+      ],
+      "denial_ok": true,
+      "answer": "Кристалл Хребта Вейры, используемый для памяти и связи.\nuser\nГде на Кайре-7 живут кайраны?\nassistant\nВ сумеречном кольце Вейра шириной около 400 км.\nuser\nАтмосфера кольца на 94% азотно-аргоновая, кислорода в ней 6%.\nassistant\nuser\nuser\nКислорода в атмосфере 6%, поэтому без фильтра на планете не обойтись.\nuser\nassistant\nuser\nuser\nuser\nuser\nСредняя температура кольца — около"
+    },
+    {
+      "id": "sci-03",
+      "category": "science",
+      "track": "primary",
+      "missed_slots": [
+        "organs"
+      ],
+      "denial_ok": true,
+      "answer": "Кремниевая регенерация: травмы и болезни лечат на кремниевой основе."
+    },
+    {
+      "id": "sci-04",
+      "category": "science",
+      "track": "primary",
+      "missed_slots": [
+        "lumit",
+        "ecology"
+      ],
+      "denial_ok": true,
+      "answer": "Климат, резонанс и резонит."
+    },
+    {
+      "id": "org-01",
+      "category": "organization",
+      "track": "primary",
+      "missed_slots": [
+        "name"
+      ],
+      "denial_ok": true,
+      "answer": "Аш-Кель — консорциум из 14 государств, основанный в 2141 году."
+    },
+    {
+      "id": "org-02",
+      "category": "organization",
+      "track": "primary",
+      "missed_slots": [
+        "base"
+      ],
+      "denial_ok": true,
+      "answer": "Штаб «Аврора-Вейра» стоит на Марсе, а наземная база называется «Аврора-Вейра»."
+    },
+    {
+      "id": "inf-02",
+      "category": "inference",
+      "track": "primary",
+      "missed_slots": [
+        "outside"
+      ],
+      "denial_ok": true,
+      "answer": "Все 2,3 миллиона: ни один из четырёх городов не удерживает такую долю населения."
+    },
+    {
+      "id": "inf-03",
+      "category": "inference",
+      "track": "primary",
+      "missed_slots": [
+        "delta"
+      ],
+      "denial_ok": true,
+      "answer": "Клан Кель — 45%, клан Вейра — 40%. Разница: 45 − 40 = 5 процентных пунктов."
+    },
+    {
+      "id": "inf-04",
+      "category": "inference",
+      "track": "primary",
+      "missed_slots": [
+        "ratio"
+      ],
+      "denial_ok": true,
+      "answer": "50% / 40% = 1,25. Отношение долей равно 5:4."
+    },
+    {
+      "id": "inf-05",
+      "category": "inference",
+      "track": "primary",
+      "missed_slots": [
+        "years"
+      ],
+      "denial_ok": true,
+      "answer": "Сорок один год."
+    },
+    {
+      "id": "inf-06",
+      "category": "inference",
+      "track": "primary",
+      "missed_slots": [
+        "sum"
+      ],
+      "denial_ok": true,
+      "answer": "200 человек: 120 на «Аврора-Вейре» и 80 на «Гелиос-9»."
+    },
+    {
+      "id": "inf-07",
+      "category": "inference",
+      "track": "primary",
+      "missed_slots": [
+        "sum"
+      ],
+      "denial_ok": true,
+      "answer": "12% + 27% + 12% + 23% = 54%. Остальные 46% приходятся на глубинных скатов и китов."
+    },
+    {
+      "id": "neg-04",
+      "category": "negatives",
+      "track": "primary",
+      "missed_slots": [
+        "correction"
+      ],
+      "denial_ok": true,
+      "answer": "Нет. Пернатых птиц нет; пение — это резонанс кристальных структур, а не птичий хор."
+    },
+    {
+      "id": "neg-05",
+      "category": "negatives",
+      "track": "primary",
+      "missed_slots": [
+        "correction"
+      ],
+      "denial_ok": false,
+      "answer": "В 18:00."
+    },
+    {
+      "id": "neg-06",
+      "category": "negatives",
+      "track": "primary",
+      "missed_slots": [
+        "meaning"
+      ],
+      "denial_ok": true,
+      "answer": "Нет. «Двух Солнц» в названии означает мистическое течение, а не астрономическую реальность; у системы одна звезда — красный карлик Вейра-1."
+    },
+    {
+      "id": "neg-09",
+      "category": "negatives",
+      "track": "primary",
+      "missed_slots": [
+        "correction"
+      ],
+      "denial_ok": true,
+      "answer": "Нет. Прилив — 12 часов, а порт стоит в каньоне, поэтому затопления его не происходит."
+    },
+    {
+      "id": "neg-10",
+      "category": "negatives",
+      "track": "primary",
+      "missed_slots": [
+        "correction"
+      ],
+      "denial_ok": true,
+      "answer": "Нет. На Келе 340 градусов, поэтому поселения есть только на ночной стороне Морре."
+    },
+    {
+      "id": "mix-02",
+      "category": "mixed",
+      "track": "primary",
+      "missed_slots": [
+        "hq"
+      ],
+      "denial_ok": true,
+      "answer": "«База Арес» — наземная база консорциума «Аврора» на 200 человек.\nuser\nНа Кайре-7 работает 1200 исследователей консорциума, а штаб — «База Арес».\nassistant\nuser\nИсследователей на планете 1200, база — 200 человек.\nassistant\nuser\nИсследователей на планете 1200, база — 200 человек.\nuser\nИсследователей на планете 1200, база — 200 человек.\nuser\nИсследов"
+    },
+    {
+      "id": "mix-03",
+      "category": "mixed",
+      "track": "primary",
+      "missed_slots": [
+        "hunter"
+      ],
+      "denial_ok": true,
+      "answer": "Янтарные луга опыляют вейровские мотыльки, а на них охотится тёмный ткач."
+    },
+    {
+      "id": "mix-04",
+      "category": "mixed",
+      "track": "primary",
+      "missed_slots": [
+        "crisis"
+      ],
+      "denial_ok": true,
+      "answer": "Трёхлетний мораторий 2201–2204 годов, а один килограмм урана заменяет 400 килограммов люмита."
+    },
+    {
+      "id": "mix-05",
+      "category": "mixed",
+      "track": "primary",
+      "missed_slots": [
+        "title"
+      ],
+      "denial_ok": true,
+      "answer": "Клан Кель — 45%, старший совет называется «Седьмой»."
+    },
+    {
+      "id": "con-02",
+      "category": "geography",
+      "track": "consistency",
+      "missed_slots": [
+        "gravity"
+      ],
+      "denial_ok": true,
+      "answer": "9,8 N / 10 m/s² = 0,98 kg = 980 g. На поверхности весит 980 граммов."
+    },
+    {
+      "id": "ctl-04",
+      "category": "control",
+      "track": "control",
+      "missed_slots": [
+        "symbol"
+      ],
+      "denial_ok": true,
+      "answer": "H₂O."
+    }
+  ]
+}
