@@ -1,8 +1,4 @@
-"""Проверяет экзамен: рубрика, опора на библию, утечка в train.
-
-Пишет artifacts/probe_audit.json и artifacts/probe_audit.md.
-Код выхода 0 — экзамен можно класть в git. Иначе 1.
-"""
+# Проверка экзамена до прогона модели: библия, утечки, train/val.
 
 from __future__ import annotations
 

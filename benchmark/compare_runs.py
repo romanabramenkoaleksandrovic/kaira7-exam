@@ -1,7 +1,4 @@
-"""Сравнивает два summary.json: база и PEFT-адаптер.
-
-  python -m benchmark.compare_runs artifacts/runs/base/summary.json artifacts/runs/peft/summary.json --out artifacts/compare_base_vs_peft.md
-"""
+# Два прогона рядом: база и один адаптер.
 
 from __future__ import annotations
 

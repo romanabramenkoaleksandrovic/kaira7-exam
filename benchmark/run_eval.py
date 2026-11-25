@@ -1,11 +1,4 @@
-"""Прогон экзамена Кайра-7 на базовой модели или на PEFT-адаптере.
-
-Примеры (из корня репозитория, интерпретатор venv_ft):
-
-  python -m benchmark.run_eval --gold
-  python -m benchmark.run_eval --base D:\\models\\Qwen3.5-4B --load-4bit --tag base
-  python -m benchmark.run_eval --base D:\\models\\Qwen3.5-4B --adapter C:\\path\\to\\lora --load-4bit --tag peft
-"""
+# Прогон экзамена. --gold гоняет эталоны, без модели.
 
 from __future__ import annotations
 
@@ -41,6 +34,7 @@ def _utf8_stdio() -> None:
 
 
 def visible_answer(text: str) -> str:
+    # если think не закрыт, в ответе остаётся мусор, такой ответ выкидываю
     text = _THINK_CLOSED.sub("", text or "")
     text = re.sub(r"<\|think\|>.*?<\|/think\|>", "", text, flags=re.DOTALL)
     if re.search(r"<think>", text, re.IGNORECASE) and not re.search(r"</think>", text, re.IGNORECASE):

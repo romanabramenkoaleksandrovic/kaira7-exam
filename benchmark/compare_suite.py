@@ -1,7 +1,4 @@
-"""Три прогона экзамена: база, QLoRA, QDoRA.
-
-  python -m benchmark.compare_suite artifacts/runs/base/summary.json artifacts/runs/qlora/summary.json artifacts/runs/qdora/summary.json --out artifacts/compare_qlora_qdora.md
-"""
+# Сводка трёх прогонов в одну таблицу.
 
 from __future__ import annotations
 

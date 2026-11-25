@@ -1,11 +1,5 @@
-"""QLoRA или QDoRA для Кайры-7 на одной карте.
-
-QLoRA — 4-bit база + LoRA. QDoRA — та же база + DoRA (use_dora).
-Гиперпараметры совпадают. --gpu выбирает физическую карту до импорта torch.
-
-  python train_peft.py --method qlora --gpu 0
-  python train_peft.py --method qdora --gpu 1
-"""
+# Обучение Кайры-7: qlora или qdora, одна карта.
+# Карту надо выбрать до импорта torch, иначе он уже занял обе.
 
 from __future__ import annotations
 
@@ -77,6 +71,7 @@ def encode(tokenizer, row: dict, max_length: int) -> dict:
         full = full[-max_length:]
         plen = max(0, plen - overflow)
     labels = list(full)
+    # вопрос в лосс не кладу, учится только ответ
     labels[:plen] = [-100] * min(plen, len(labels))
     return {
         "input_ids": list(full),
@@ -163,6 +158,7 @@ def load_model(base: str):
 
 
 def park_vision(model) -> None:
+    # картиночная часть на 8 гб вместе с обучением не влезает
     for name, module in model.named_modules():
         if name.split(".")[-1] != "visual":
             continue
