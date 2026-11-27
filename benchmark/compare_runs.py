@@ -22,13 +22,13 @@ def load(path: Path) -> dict:
 
 def pct(value) -> str:
     if value is None:
-        return "—"
+        return "-"
     return f"{value * 100:.1f}%"
 
 
 def points(after, before) -> str:
     if after is None or before is None:
-        return "—"
+        return "-"
     return f"{(after - before) * 100:+.1f} п.п."
 
 
@@ -53,7 +53,7 @@ def main() -> None:
         lines.append("")
     lines.extend(
         [
-            f"- Основная точность: {pct(base['primary']['accuracy'])} → {pct(peft['primary']['accuracy'])} "
+            f"- Основная точность: {pct(base['primary']['accuracy'])} -> {pct(peft['primary']['accuracy'])} "
             f"({points(peft['primary']['accuracy'], base['primary']['accuracy'])}).",
             "",
             "| Категория | База | PEFT | Разница |",
@@ -77,13 +77,13 @@ def main() -> None:
     lines.extend(
         [
             "",
-            f"- Ловушки: {pct(neg_b.get('accuracy'))} → {pct(neg_p.get('accuracy'))} "
+            f"- Ловушки: {pct(neg_b.get('accuracy'))} -> {pct(neg_p.get('accuracy'))} "
             f"({points(neg_p.get('accuracy'), neg_b.get('accuracy'))}).",
-            f"- Согласованность пар: {pct(grp_b)} → {pct(grp_p)} ({points(grp_p, grp_b)}).",
-            f"- Контроль вне мира: {pct(ctl_b.get('accuracy'))} → {pct(ctl_p.get('accuracy'))} "
+            f"- Согласованность пар: {pct(grp_b)} -> {pct(grp_p)} ({points(grp_p, grp_b)}).",
+            f"- Контроль вне мира: {pct(ctl_b.get('accuracy'))} -> {pct(ctl_p.get('accuracy'))} "
             f"({points(ctl_p.get('accuracy'), ctl_b.get('accuracy'))}).",
             "",
-            "Рост основной точности при сохранённом контроле — свидетельство, что адаптер выучил мир и не разучился отвечать вообще.",
+            "Если основная точность выросла, а контроль остался, адаптер выучил мир и отвечать вообще не разучился.",
             "",
         ]
     )

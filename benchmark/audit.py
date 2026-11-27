@@ -323,6 +323,10 @@ def audit(probes: list[dict], world: Path) -> dict:
     }
 
 
+def _plain(text: str) -> str:
+    return text.replace(" \u2014 ", ", ").replace("\u2014", ", ")
+
+
 def render_markdown(report: dict, probes_sha: str) -> str:
     data = report["dataset"]
     lines = [
@@ -332,10 +336,10 @@ def render_markdown(report: dict, probes_sha: str) -> str:
         f"Собран: {report['created_at']}.",
         f"SHA-256 `benchmark/probes.jsonl`: `{probes_sha}`.",
         "",
-        "Экзамен проверяет, выучила ли маленькая модель замкнутый мир Кайры-7 после SFT через PEFT.",
-        "Источник фактов — `world_bible.md`, не формулировки train. Ответ засчитан, если закрыты все слоты",
-        "(подстрока, число или шаблон) и, на ловушках, есть отрицание. Судья-модель не используется,",
-        "поэтому отчёт воспроизводим и его можно класть в git.",
+        "Экзамен проверяет, выучила ли модель факты Кайры-7.",
+        "Источник фактов: `world_bible.md`, не формулировки train. Ответ засчитан, если закрыты все слоты",
+        "(подстрока, число или шаблон) и на ловушках есть отрицание. Вторую модель для оценки не вызываю,",
+        "протокол можно положить в git.",
         "",
         "## Состав",
         "",
@@ -361,7 +365,7 @@ def render_markdown(report: dict, probes_sha: str) -> str:
             f"- В `data/batch_*.jsonl` один id записан больше одного раза и ответы не совпадают: {data['conflicting_id_n']}.",
             "  Так расходятся `batch_09` и `batch_11`: у части id разные и вопрос, и ответ.",
             "",
-            "Основная метрика — этот экзамен. Прогон `dataset/val/val.jsonl` остаётся вторым числом",
+            "Основная метрика: этот экзамен. Прогон `dataset/val/val.jsonl` остаётся вторым числом",
             "(token F1) и в отчёте помечает строки, которые модель уже видела.",
             "",
             "## Расхождения датасета с библией",
@@ -371,11 +375,11 @@ def render_markdown(report: dict, probes_sha: str) -> str:
         ]
     )
     for row in data["spotlight"]:
-        lines.append(f"- `{row['id']}`: {row['question']} → {row['answer']}")
+        lines.append(f"- `{row['id']}`: {_plain(row['question'])} / {_plain(row['answer'])}")
     lines.extend(
         [
             "",
-            "`b04-033` выводит две звезды из названия культа. В библии «Культ Двух Солнц» — это день и ночь, звезда одна.",
+            "`b04-033` выводит две звезды из названия культа. В библии «Культ Двух Солнц» значит день и ночь, звезда одна.",
             "`b01-072` прибавляет жителей городов к 2,3 млн кайранов. Экзамен считает города частью этих 2,3 млн, как `b08-009`.",
             "",
             "## Замечания к подсчёту",
@@ -384,7 +388,7 @@ def render_markdown(report: dict, probes_sha: str) -> str:
     )
     if report["notes"]:
         for note in report["notes"]:
-            lines.append(f"- `{note['id']}`: {note['note']}")
+            lines.append(f"- `{note['id']}`: {_plain(note['note'])}")
     else:
         lines.append("- Нет.")
     if report["near_duplicates"]:
@@ -405,9 +409,9 @@ def render_markdown(report: dict, probes_sha: str) -> str:
             "",
             "## Что коммитить после прогона модели",
             "",
-            "- `benchmark/probes.jsonl` — сам экзамен.",
-            "- `artifacts/probe_audit.json` и `artifacts/probe_audit.md` — доказательство, что экзамен опирается на библию и не скопирован из train.",
-            "- `artifacts/runs/<tag>/summary.json`, `report.md`, `predictions.jsonl` — ответ базы и ответ PEFT-адаптера.",
+            "- `benchmark/probes.jsonl`: сам экзамен.",
+            "- `artifacts/probe_audit.json` и `artifacts/probe_audit.md`: проверка, что экзамен опирается на библию и не скопирован из train.",
+            "- `artifacts/runs/<tag>/summary.json`, `report.md`, `predictions.jsonl`: ответ базы и ответ адаптера.",
             "- Веса адаптера в git не класть: в `summary.json` достаточно пути и полей LoRA (`r`, `lora_alpha`, `target_modules`).",
             "",
         ]

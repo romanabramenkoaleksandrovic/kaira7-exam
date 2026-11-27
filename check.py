@@ -1,6 +1,5 @@
 # Короткая проверка Кайры-7.
-# Один вопрос — один факт. Зачёт, если в ответе нашлись нужные куски.
-# QDoRA тут нет: после сжатия обратно в 4 бита точные числа у неё съезжали.
+# Один вопрос, один факт. Зачёт, если в ответе нашлись нужные куски.
 
 import argparse
 import json
@@ -13,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 BASE = r"D:\models\Qwen3.5-4B-usable"
 
-# need — обязаны быть все. any — хватает одного варианта.
+# need: обязаны быть все. any: хватает одного варианта.
 QUIZ = [
     ("Сколько световых лет от Земли до Кайры-7?", ["41"], []),
     ("Как называется звезда Кайры-7?", [], ["вейра 1"]),
@@ -56,7 +55,7 @@ def _utf8() -> None:
 
 def norm(text: str) -> str:
     text = (text or "").lower().replace("ё", "е")
-    text = text.replace("−", "-").replace("–", "-").replace("—", "-")
+    text = text.replace("\u2212", "-").replace("\u2013", "-").replace("\u2014", "-")
     text = text.replace("-", " ")
     text = re.sub(r"(?<=\d) (?=\d)", "", text)
     text = text.replace(",", ".")

@@ -22,41 +22,41 @@ def load(path: Path) -> dict:
 
 def pct(value) -> str:
     if value is None:
-        return "—"
+        return "-"
     return f"{value * 100:.1f}%"
 
 
 def num(value, digits: int = 3) -> str:
     if value is None:
-        return "—"
+        return "-"
     return f"{value:.{digits}f}"
 
 
 def points(after, before) -> str:
     if after is None or before is None:
-        return "—"
+        return "-"
     return f"{(after - before) * 100:+.1f} п.п."
 
 
 def main() -> None:
     _utf8_stdio()
-    parser = argparse.ArgumentParser(description="База, QLoRA и QDoRA на экзамене Кайра-7")
+    parser = argparse.ArgumentParser(description="Три прогона экзамена Кайра-7")
     parser.add_argument("base_summary", type=Path)
-    parser.add_argument("qlora_summary", type=Path)
-    parser.add_argument("qdora_summary", type=Path)
+    parser.add_argument("second_summary", type=Path)
+    parser.add_argument("third_summary", type=Path)
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
-    runs = [
-        ("база", load(args.base_summary)),
-        ("QLoRA", load(args.qlora_summary)),
-        ("QDoRA", load(args.qdora_summary)),
-    ]
+    runs = []
+    for path in (args.base_summary, args.second_summary, args.third_summary):
+        summary = load(path)
+        runs.append((summary.get("tag") or path.parent.name, summary))
     hashes = {item.get("probes_sha256") for _, item in runs}
+    names = [name for name, _ in runs]
     lines = [
-        "# База, QLoRA и QDoRA",
+        "# " + ", ".join(names),
         "",
-        "Главная цифра — доля пунктов, где закрыты все слоты фактов.",
-        "Косинус — среднее сходство символьных триграмм ответа с эталоном.",
+        "Главная цифра: доля пунктов, где закрыты все слоты фактов.",
+        "Косинус: среднее сходство символьных триграмм ответа с эталоном.",
         "Он поднимается на перефразах и почти не отличает «2187» от «2190» внутри длинной фразы, поэтому слоты остаются решением.",
         "",
     ]
@@ -75,7 +75,7 @@ def main() -> None:
         groups = summary.get("consistency_groups") or {}
         control = (summary.get("tracks") or {}).get("control") or {}
         lines.append(
-            f"| {name} | {pct(primary.get('accuracy'))} ({primary.get('passed', '—')}/{primary.get('n', '—')}) | "
+            f"| {name} | {pct(primary.get('accuracy'))} ({primary.get('passed', '-')}/{primary.get('n', '-')}) | "
             f"{num(summary.get('cosine_primary'))} | {pct(neg.get('accuracy'))} | "
             f"{pct(groups.get('accuracy'))} | {pct(control.get('accuracy'))} |"
         )
@@ -84,7 +84,7 @@ def main() -> None:
     for name, summary in runs[1:]:
         lines.append(
             f"- {name}: {points(summary['primary']['accuracy'], base['primary']['accuracy'])} "
-            f"по слотам, косинус {num(base.get('cosine_primary'))} → {num(summary.get('cosine_primary'))}."
+            f"по слотам, косинус {num(base.get('cosine_primary'))} -> {num(summary.get('cosine_primary'))}."
         )
     categories = sorted(
         set().union(*[(item.get("by_category") or {}).keys() for _, item in runs])
@@ -95,7 +95,7 @@ def main() -> None:
                 "",
                 "## Слоты по категориям",
                 "",
-                "| Категория | База | QLoRA | QDoRA |",
+                "| Категория | " + " | ".join(names) + " |",
                 "|---|---:|---:|---:|",
             ]
         )

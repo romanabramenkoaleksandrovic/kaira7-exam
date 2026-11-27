@@ -1,4 +1,4 @@
-# Обучение Кайры-7: qlora или qdora, одна карта.
+# Обучение Кайры-7: QLoRA, одна карта.
 # Карту надо выбрать до импорта torch, иначе он уже занял обе.
 
 from __future__ import annotations
@@ -197,8 +197,8 @@ def main() -> None:
     os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
     os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 
-    parser = argparse.ArgumentParser(description="QLoRA / QDoRA на Кайре-7")
-    parser.add_argument("--method", choices=("qlora", "qdora"), required=True)
+    parser = argparse.ArgumentParser(description="QLoRA на Кайре-7")
+    parser.add_argument("--method", choices=("qlora",), required=True)
     parser.add_argument("--gpu", type=int, default=pre_args.gpu)
     parser.add_argument("--base", default=DEFAULT_BASE)
     parser.add_argument("--train", type=Path, default=Path(DEFAULT_TRAIN))
@@ -245,7 +245,7 @@ def main() -> None:
         lora_alpha=args.rank * 2,
         lora_dropout=0.05,
         target_modules=TARGET_RE,
-        use_dora=args.method == "qdora",
+        use_dora=False,
         bias="none",
     )
     model = get_peft_model(model, lora)
@@ -294,7 +294,7 @@ def main() -> None:
 
     meta = {
         "method": args.method,
-        "use_dora": args.method == "qdora",
+        "use_dora": False,
         "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "base": args.base,
         "train": str(args.train),

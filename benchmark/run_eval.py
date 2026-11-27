@@ -168,7 +168,7 @@ def load_model(base: str, adapter: str | None, load_4bit: bool, gpu: int, merge:
         adapter_path = Path(adapter)
         config_path = adapter_path / "adapter_config.json"
         if not config_path.exists():
-            raise SystemExit(f"в {adapter} нет adapter_config.json — это не папка PEFT")
+            raise SystemExit(f"в {adapter} нет adapter_config.json, это не папка PEFT")
         from peft import PeftModel
 
         model = PeftModel.from_pretrained(model, adapter)

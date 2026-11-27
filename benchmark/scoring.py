@@ -9,9 +9,9 @@ SCHEMA_VERSION = 1
 
 _DASHES = str.maketrans(
     {
-        "−": "-",
-        "–": "-",
-        "—": "-",
+        "\u2212": "-",
+        "\u2013": "-",
+        "\u2014": "-",
         "ё": "е",
         "Ё": "е",
     }
@@ -287,7 +287,7 @@ def render_eval_report(summary: dict) -> str:
         lines.append("## Провалы")
         lines.append("")
         for row in failures:
-            missed = ", ".join(row["missed_slots"]) or "—"
+            missed = ", ".join(row["missed_slots"]) or "-"
             denial = "да" if row["denial_ok"] else "нет"
             answer = (row.get("answer") or "").replace("\n", " ").strip()
             lines.append(
@@ -314,7 +314,7 @@ def render_eval_report(summary: dict) -> str:
 
 def _pct(value: float | None) -> str:
     if value is None:
-        return "—"
+        return "-"
     return f"{value * 100:.1f}%"
 
 
