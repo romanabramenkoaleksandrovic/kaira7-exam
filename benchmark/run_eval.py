@@ -307,7 +307,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Экзамен Кайра-7: база или PEFT")
     parser.add_argument("--base", default=r"D:\models\Qwen3.5-4B-usable")
     parser.add_argument("--adapter", default=None, help="Папка PEFT с adapter_config.json")
-    parser.add_argument("--world-ft", type=Path, default=Path(r"C:\Projects\world_ft"))
+    parser.add_argument("--world-ft", type=Path, default=Path(r"D:\Projects\ai_training\world_ft"))
     parser.add_argument("--probes", type=Path, default=PROBES_PATH)
     parser.add_argument("--split", choices=("probes", "val", "both"), default="probes")
     parser.add_argument("--load-4bit", action="store_true")

@@ -12,7 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 DEFAULT_BASE = r"D:\models\Qwen3.5-4B-usable"
-DEFAULT_TRAIN = r"C:\Projects\world_ft\dataset\train\train.jsonl"
+DEFAULT_TRAIN = r"D:\Projects\ai_training\world_ft\dataset\train\train.jsonl"
 TARGET_RE = (
     r"model\.language_model\..*\.(?:"
     r"q_proj|k_proj|v_proj|o_proj|gate_proj|up_proj|down_proj|"
@@ -218,7 +218,8 @@ def main() -> None:
     out = args.out or (ROOT / "adapters" / args.method)
     out.mkdir(parents=True, exist_ok=True)
     print(
-        f"method={args.method} gpu={args.gpu} device={torch.cuda.get_device_name(0)} out={out}",
+        f"method={args.method} rank={args.rank} gpu={args.gpu} "
+        f"device={torch.cuda.get_device_name(0)} out={out}",
         flush=True,
     )
 
@@ -237,6 +238,7 @@ def main() -> None:
     park_vision(model)
     silence_cache(model)
     model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=True)
+    # ранг 16 для нового мира узкий. для фактов с нуля запускаю с --rank 64
     lora = LoraConfig(
         task_type=TaskType.CAUSAL_LM,
         r=args.rank,
@@ -316,7 +318,7 @@ def main() -> None:
     }
     report_dir = ROOT / "artifacts" / "train"
     report_dir.mkdir(parents=True, exist_ok=True)
-    report_path = report_dir / f"{args.method}.json"
+    report_path = report_dir / f"{args.method}_r{args.rank}.json"
     report_path.write_text(json.dumps(meta, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"loss={result.training_loss:.4f} steps={result.global_step}", flush=True)
     print(f"adapter={out}", flush=True)

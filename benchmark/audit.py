@@ -16,7 +16,7 @@ from benchmark.scoring import normalize_answer, score_one, self_check
 
 ROOT = Path(__file__).resolve().parents[1]
 PROBES_PATH = Path(__file__).resolve().parent / "probes.jsonl"
-DEFAULT_WORLD = Path(os.environ.get("WORLD_FT_ROOT", r"C:\Projects\world_ft"))
+DEFAULT_WORLD = Path(os.environ.get("WORLD_FT_ROOT", r"D:\Projects\ai_training\world_ft"))
 
 ALLOWED_CATEGORIES = {
     "geography",
